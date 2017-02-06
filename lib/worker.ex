@@ -1,4 +1,4 @@
-defmodule Learn.worker do
+defmodule Learn.Worker do
    def temperature_of(location) do
      result = url_for(location) |> HTTPoison.get |> parse_response
      case result do
@@ -11,7 +11,7 @@ defmodule Learn.worker do
      location = URI.encode(location)
    end
 
-   defp parse_response({:ok, %HTTPoison.Response{body: body, status_code: = 200}}) do
+   defp parse_response({:ok, %HTTPoison.Response{body: body, status_code: 200} }) do
      body |> JSON.decode! |> compute_temperature
    end
 
@@ -24,11 +24,11 @@ defmodule Learn.worker do
        temp = (json["main"]["temp"] - 273.15) |> Float.round(1)
        {:ok, temp}
      rescue
-       _ -> : error
+       _ -> :error
      end
    end
 
    defp apikey do
-     "APIKEY"
+     ""
    end
 end
