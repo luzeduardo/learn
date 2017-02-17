@@ -25,4 +25,25 @@ defmodule Learn.GenWorker do
     end
   end
 
+  #Helper functions
+  defp temperature_of(location) do
+    url_for(location) |> HTTPoison.get |> parse_response
+  end
+
+  def parse_response({:ok, %HTTPoison.Response{body: body, status_code:200}}) do
+    body |> JSON.decode! |> compute_temperature
+  end
+
+  def parse_response(_) do
+    :error
+  end
+
+  defp url_location(location) do
+    "http://api.openweathermap.org/data/2.5/weather?p=#{location}&APPID=#{apikey}"
+  end
+
+  defp apikey do
+    "3bcefb6d7bb84307b0e4eb31a73b03f4"
+  end
+
 end
