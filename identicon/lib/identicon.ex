@@ -25,15 +25,9 @@ defmodule Identicon do
   def build_grid(%Identicon.Image{hex: hex} = image) do
     grid = hex
     |> Enum.chunk(3)
-    #this will map every item in the list and use a reference of mirror_row that receives 1 parameter
     |> Enum.map(&mirror_row/1)
-    #creating an unique list
     |> List.flatten
-    #we need to create an index for each value in the list to create the grid for identicon
-    # it will return for each value inside the list a tuple containing the {value of the list, index in the list}
     |> Enum.with_index
-    #get all avaiable data from the struct inside image and change the grid value using the suggar verticalbar operator
-    #returning it
     %Identicon.Image{image | grid: grid}
   end
 
